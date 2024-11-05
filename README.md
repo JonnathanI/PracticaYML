@@ -78,7 +78,8 @@ Docker Compose es una herramienta que permite definir y ejecutar aplicaciones mu
       
     
     Ingresa a PgAdmin con las credenciales definidas (`admin@admin.com` y `admin`), y añade el servidor de PostgreSQL utilizando las credenciales configuradas en el contenedor `db` (`user` y `password`).
-   ![image](https://github.com/user-attachments/assets/f5a732c7-aece-4e7b-9e28-fa27d0f7089b)
+   ![image](https://github.com/user-attachments/assets/c73cdd48-4c8b-43f4-8773-271c3366afe5)
+
 
 
 6. **Verificación**:
