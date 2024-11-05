@@ -36,52 +36,56 @@ Docker Compose es una herramienta que permite definir y ejecutar aplicaciones mu
     - Agrega la configuración para los servicios de PostgreSQL y PgAdmin:
     
     ```yaml
-    version: '3.8'
-
     services:
-      db:
-        image: postgres:13
-        container_name: postgres-db
-        environment:
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: mydatabase
-        ports:
-          - "5432:5432"
-        networks:
-          - mynetwork
-
-      pgadmin:
-        image: dpage/pgadmin4
-        container_name: pgadmin
-        environment:
-          PGADMIN_DEFAULT_EMAIL: admin@admin.com
-          PGADMIN_DEFAULT_PASSWORD: admin
-        ports:
-          - "80:80"
-        depends_on:
-          - db
-        networks:
-          - mynetwork
-
-    networks:
-      mynetwork:
-        driver: bridge
+     # Servicio de PostgreSQL
+     postgres:
+       image: postgres:latest
+       container_name: postgres
+       environment:
+         POSTGRES_USER: admin
+         POSTGRES_PASSWORD: admin
+         POSTGRES_DB: mydatabase
+       volumes:
+         - postgres_data:/var/lib/postgresql/data
+       ports:
+         - "5432:5432"
+   
+      Servicio de pgAdmin
+     pgadmin:
+       image: dpage/pgadmin4:latest
+       container_name: pgadmin1
+       environment:
+         PGADMIN_DEFAULT_EMAIL: admin@example.com
+         PGADMIN_DEFAULT_PASSWORD: admin
+       ports:
+         - "8080:80"
+       depends_on:
+         - postgres
+   
+   volumes:
+     postgres_data:
     ```
 
 3. **Iniciar los contenedores**:
     - En la terminal, navega hasta la carpeta donde guardaste el archivo `docker-compose.yml`.
     - Ejecuta el comando `docker-compose up` para iniciar los contenedores.
+      ![image](https://github.com/user-attachments/assets/61268887-36e8-4c08-af41-a854f1404398)
+
 
 4. **Acceso a los contenedores**:
     - PostgreSQL estará accesible en el puerto `5432` en tu máquina.
     - PgAdmin podrá ser accedido a través de `http://localhost` en tu navegador.
+      
     
     Ingresa a PgAdmin con las credenciales definidas (`admin@admin.com` y `admin`), y añade el servidor de PostgreSQL utilizando las credenciales configuradas en el contenedor `db` (`user` y `password`).
+   ![image](https://github.com/user-attachments/assets/f5a732c7-aece-4e7b-9e28-fa27d0f7089b)
 
-5. **Verificación**:
+
+6. **Verificación**:
     - Abre PgAdmin y asegúrate de que el contenedor de PostgreSQL esté conectado correctamente.
     - Crea una nueva base de datos y realiza una conexión para confirmar que todo esté funcionando como se espera.
+      ![image](https://github.com/user-attachments/assets/48438474-0373-4dfa-8ab5-d5bc6d1631e6)
+
 
 ## Resultados Esperados
 - Los contenedores de PostgreSQL y PgAdmin deberían estar funcionando correctamente.
